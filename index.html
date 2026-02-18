@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Event</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+        }
+
+        .slide-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .slide-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .slide-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
+        }
+
+        .image-placeholder {
+            height: 250px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            border: 2px dashed rgba(255,255,255,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .image-placeholder:hover {
+            transform: translateY(-5px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-volunteer {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-volunteer:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255,107,107,0.4);
+        }
+
+        .btn-tickets {
+            background: #4ecdc4;
+            color: white;
+        }
+
+        .btn-tickets:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(78,205,196,0.4);
+        }
+
+        .btn-donate {
+            background: #ffe66d;
+            color: #333;
+        }
+
+        .btn-donate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255,230,109,0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .payment-option {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .payment-option:hover {
+            border-color: #667eea;
+            background: rgba(102,126,234,0.05);
+        }
+
+        .payment-option.selected {
+            border-color: #667eea;
+            background: rgba(102,126,234,0.1);
+            color: #667eea;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .payment-info {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .slide h1 {
+                font-size: 2.5rem;
+            }
+
+            .slide p {
+                font-size: 1.1rem;
+            }
+
+            .image-container {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="slide slide-1">
+    <div class="slide-content">
+        <h1>ಭಾಗ್ಯವಂತ ಮೊಂತಿ ಫೆಸ್ಟ್</h1>
+        <h2>(Blessed Monthi Fest)<h2>
+        <p>We warmly invite you and your family to join us in celebrating Monthi Fest. Come together as a community to honor Our Lady’s Nativity with prayer, flower offerings, joyful singing, cultural performances, and delicious traditional Konkani food.
+
+Let us celebrate our faith, heritage, and unity with gratitude and joy. We look forward to sharing this special day with you!</p>
+        <div class="image-container">
+            <img src="images/idol.jpg" alt="Event photo 1" style="width:100%; height:350px; object-fit:cover; border-radius:12px;">
+            <img src="images/childrenflowers.jpg" alt="Event photo 2" style="width:100%; height:350px; object-fit:cover; border-radius:12px;">
+            <img src="images/idolflowers.jpg" alt="Event photo 3" style="width:100%; height:350px; object-fit:cover; border-radius:12px;">
+        </div>
+    </div>
+</section>
+
+    <section class="slide slide-2">
+        <div class="slide-content">
+            <h1>Event Highlights</h1>
+            <p>Celebrate the joy and tradition of Monthi Fest with activities for the whole family! Little children can take part in the beautiful flower-throwing ceremony, while everyone enjoys vibrant singing, lively dances, and an entertaining Konkani skit. Savor delicious traditional dishes lovingly prepared by our Konkani community, bringing the true flavors of our heritage to life.</p>
+            <div class="image-container">
+            <img src="images/flowerthrowing.jpg" alt="Event photo 1" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
+            <img src="images/singing.jpg" alt="Event photo 2" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
+            <img src="images/food.jpg" alt="Event photo 3" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
+            </div>
+        </div>
+    </section>
+
+    <section class="slide slide-3">
+        <div class="slide-content">
+            <h1>Get Involved</h1>
+            <p>You can support this special event by volunteering your time, sharing your talents, making a donation, or purchasing tickets and bringing your family and friends along. Every helping hand and generous contribution makes a meaningful difference in creating a joyful and memorable celebration for our entire community.</p>
+             <div class="image-container">
+            <img src="images/volunteers.jpg" alt="Event photo 1" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
+            <img src="images/volunteer2.jpg" alt="Event photo 2" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-volunteer" onclick="openModal('volunteer')">Volunteer</button>
+                <button class="btn btn-tickets" onclick="openModal('tickets')">Buy Tickets</button>
+                <button class="btn btn-donate" onclick="openModal('donate')">Donate</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="volunteerModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Volunteer Sign Up</h2>
+            <span class="close" onclick="closeModal('volunteer')">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="volunteerForm" onsubmit="handleSubmit(event, 'volunteer')">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Volunteer Activities * (select all that apply)</label>
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px; padding-left: 0;">
+    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
+        <input type="checkbox" name="activities" value="Food Prep" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
+        Food Prep
+    </label>
+    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
+        <input type="checkbox" name="activities" value="Decoration" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
+        Decoration
+    </label>
+    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
+        <input type="checkbox" name="activities" value="Setup" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
+        Setup
+    </label>
+    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
+        <input type="checkbox" name="activities" value="Tear Down" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
+        Tear Down
+    </label>
+    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
+        <input type="checkbox" name="activities" value="Event Coordination" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
+        Event Coordination
+    </label>
+    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
+        <input type="checkbox" name="activities" value="Performer" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
+        Performer
+    </label>
+    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
+        <input type="checkbox" name="activities" value="Photographer" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
+        Photographer
+    </label>
+</div>
+                </div>
+                <div class="form-group">
+                    <label>Additional Information</label>
+                    <textarea name="message" placeholder="Tell us about your skills, availability, or any questions..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+   <div id="ticketsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Buy Tickets</h2>
+            <span class="close" onclick="closeModal('tickets')">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="ticketsForm" onsubmit="handleSubmit(event, 'tickets')">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Number of Adults *</label>
+                    <input type="number" name="adults" id="adults" min="0" value="0" required onchange="calculateTotal()">
+                    <small style="color: #666;">$25 per adult</small>
+                </div>
+                <div class="form-group">
+                    <label>Number of Children *</label>
+                    <input type="number" name="children" id="children" min="0" value="0" required onchange="calculateTotal()">
+                    <small style="color: #666;">$15 per child</small>
+                </div>
+                <div class="form-group">
+                    <label>Total Amount</label>
+                    <input type="text" id="totalAmount" name="amount" readonly style="background: #f5f5f5; font-weight: bold; font-size: 1.2rem;" value="$0">
+                </div>
+                <div class="form-group">
+                    <label>Payment Method *</label>
+                    <div class="payment-options">
+                        <div class="payment-option" onclick="selectPayment(this, 'tickets', 'zelle')">Zelle</div>
+                        <div class="payment-option" onclick="selectPayment(this, 'tickets', 'venmo')">Venmo</div>
+                        <div class="payment-option" onclick="selectPayment(this, 'tickets', 'paypal')">PayPal</div>
+                    </div>
+                    <input type="hidden" name="payment" required>
+                </div>
+                <div id="ticketsPaymentInfo" class="payment-info"></div>
+                <button type="submit" class="submit-btn">Complete Purchase</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Make a Donation</h2>
+                <span class="close" onclick="closeModal('donate')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="donateForm" onsubmit="handleSubmit(event, 'donate')">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Donation Amount *</label>
+                        <input type="number" name="amount" placeholder="50" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Method *</label>
+                        <div class="payment-options">
+                            <div class="payment-option" onclick="selectPayment(this, 'donate', 'zelle')">Zelle</div>
+                            <div class="payment-option" onclick="selectPayment(this, 'donate', 'venmo')">Venmo</div>
+                            <div class="payment-option" onclick="selectPayment(this, 'donate', 'paypal')">PayPal</div>
+                        </div>
+                        <input type="hidden" name="payment" required>
+                    </div>
+                    <div id="donatePaymentInfo" class="payment-info"></div>
+                    <div class="form-group">
+                        <label>Message (Optional)</label>
+                        <textarea name="message" placeholder="Leave a message of support..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Complete Donation</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<!-- Zelle QR Code Modal -->
+<div id="zelleModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Pay with Zelle</h2>
+            <span class="close" onclick="closeZelleModal()">&times;</span>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+            <p style="margin: 20px 0; font-size: 1.1rem;">
+                <strong>Amount: <span id="zelleAmount"></span></strong>
+            </p>
+            <div style="margin: 30px auto; padding: 20px; background: white; border-radius: 10px; display: inline-block;">
+                <img src="images/zelle.jpeg" alt="Zelle QR Code" style="max-width: 300px; width: 100%;">
+            </div>
+            <p style="color: #666; margin-top: 20px;">Scan this QR code with your banking app</p>
+            <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 10px; border: 1px solid #ffc107;">
+                <p style="margin: 0; color: #856404;"><strong>Note:</strong> Please include "<span id="zelleNote"></span>" in the payment memo</p>
+            </div>
+            <div style="margin-top: 30px;">
+                <label style="display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; font-size: 1.1rem;">
+                    <input type="checkbox" id="zelleConfirmCheckbox" style="width: 20px; height: 20px;">
+                    I have completed the Zelle payment
+                </label>
+            </div>
+            <button onclick="confirmZellePayment()" class="submit-btn" style="margin-top: 20px; max-width: 400px;">
+                Confirm Payment & Submit
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="venmoModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Pay with Venmo</h2>
+            <span class="close" onclick="closeVenmoModal()">&times;</span>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+            <p style="margin: 20px 0; font-size: 1.1rem;">
+                <strong>Amount: <span id="venmoAmount"></span></strong>
+            </p>
+            <div style="margin: 30px auto; padding: 20px; background: white; border-radius: 10px; display: inline-block;">
+                <img src="images/venmo.jpeg" alt="Venmo QR Code" style="max-width: 300px; width: 100%;">
+            </div>
+            <p style="color: #666; margin-top: 20px;">Scan this QR code with your banking app</p>
+            <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 10px; border: 1px solid #ffc107;">
+                <p style="margin: 0; color: #856404;"><strong>Note:</strong> Please include "<span id="venmoNote"></span>" in the payment memo</p>
+            </div>
+            <div style="margin-top: 30px;">
+                <label style="display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; font-size: 1.1rem;">
+                    <input type="checkbox" id="venmoConfirmCheckbox" style="width: 20px; height: 20px;">
+                    I have completed the Venmo payment
+                </label>
+            </div>
+            <button onclick="confirmVenmoPayment()" class="submit-btn" style="margin-top: 20px; max-width: 400px;">
+                Confirm Payment & Submit
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// *** PASTE YOUR GOOGLE APPS SCRIPT URL HERE ***
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8TX-JsfKBxKqJvJ9zBHY7dpo5dsbyL0dlpIBI2OqtgjqRSffJ9H4d_hKg1ow3o4eORA/exec';
+
+// Store pending form data
+let pendingFormData = null;
+let pendingFormType = null;
+
+// Modal functions
+function openModal(type) {
+    document.getElementById(type + 'Modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(type) {
+    document.getElementById(type + 'Modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Zelle modal functions
+function openZelleModal() {
+    document.getElementById('zelleModal').style.display = 'block';
+}
+
+function closeZelleModal() {
+    document.getElementById('zelleModal').style.display = 'none';
+    document.getElementById('zelleConfirmCheckbox').checked = false;
+}
+//Venmo Modal Functions
+function openVenmoModal() {
+    document.getElementById('venmoModal').style.display = 'block';
+}
+
+function closeVenmoModal() {
+    document.getElementById('venmoModal').style.display = 'none';
+    document.getElementById('venmoConfirmCheckbox').checked = false;
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Payment selection
+function selectPayment(element, formType, method) {
+    const container = element.parentElement;
+    const options = container.querySelectorAll('.payment-option');
+    options.forEach(opt => opt.classList.remove('selected'));
+    element.classList.add('selected');
+
+    const form = document.getElementById(formType + 'Form');
+    const hiddenInput = form.querySelector('input[name="payment"]');
+    hiddenInput.value = method;
+}
+
+// Calculate ticket total
+function calculateTotal() {
+    const adults = parseInt(document.getElementById('adults').value) || 0;
+    const children = parseInt(document.getElementById('children').value) || 0;
+    
+    const adultPrice = 25;
+    const childPrice = 15;
+    
+    const total = (adults * adultPrice) + (children * childPrice);
+    
+    document.getElementById('totalAmount').value = '$' + total;
+}
+
+// Confirm Zelle payment and submit
+function confirmZellePayment() {
+    const checkbox = document.getElementById('zelleConfirmCheckbox');
+    
+    if (!checkbox.checked) {
+        alert('Please confirm that you have completed the payment by checking the box.');
+        return;
+    }
+
+    closeZelleModal();
+    submitFormData(pendingFormData, pendingFormType);
+}
+function confirmVenmoPayment() {
+    const checkbox = document.getElementById('venmoConfirmCheckbox');
+    
+    if (!checkbox.checked) {
+        alert('Please confirm that you have completed the payment by checking the box.');
+        return;
+    }
+
+    closeVenmoModal();
+    submitFormData(pendingFormData, pendingFormType);
+}
+
+// Submit form data to Google Sheets
+async function submitFormData(data, type) {
+    const originalModal = document.getElementById(type + 'Modal');
+    const submitBtn = originalModal.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Submitting...';
+    submitBtn.disabled = true;
+
+    try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        let message = '';
+        switch(type) {
+            case 'volunteer': message = 'Thank you for volunteering! We will contact you soon.'; break;
+            case 'tickets':   message = 'Thank you for your purchase! You will receive a confirmation shortly.'; break;
+            case 'donate':    message = 'Thank you for your generous donation!'; break;
+        }
+
+        alert(message);
+        closeModal(type);
+        
+        // Reset form
+        const form = document.getElementById(type + 'Form');
+        form.reset();
+
+        // Reset total amount display for tickets
+        if (type === 'tickets') {
+            document.getElementById('totalAmount').value = '$0';
+        }
+
+        // Clear pending data
+        pendingFormData = null;
+        pendingFormType = null;
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Something went wrong. Please try again.');
+    } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+}
+
+// Form submission handler
+async function handleSubmit(event, type) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    // Handle checkboxes for volunteer form
+    if (type === 'volunteer') {
+        const activities = [...event.target.querySelectorAll('input[name="activities"]:checked')]
+            .map(cb => cb.value)
+            .join(', ');
+
+        if (!activities) {
+            alert('Please select at least one volunteer activity.');
+            return;
+        }
+
+        data.activities = activities;
+        data.type = type;
+        
+        // Volunteers don't need payment, submit directly
+        await submitFormData(data, type);
+        return;
+    }
+
+    // For tickets and donations, validate and handle payment
+    if (type === 'tickets' || type === 'donate') {
+        if (!data.payment) {
+            alert('Please select a payment method before submitting.');
+            return;
+        }
+
+        // Validate tickets
+        if (type === 'tickets') {
+            const adults = parseInt(data.adults) || 0;
+            const children = parseInt(data.children) || 0;
+            
+            if (adults === 0 && children === 0) {
+                alert('Please select at least one adult or child ticket.');
+                return;
+            }
+        }
+
+        data.type = type;
+        
+        // Store pending data
+        pendingFormData = data;
+        pendingFormType = type;
+
+        // Handle payment based on method
+        if (data.payment === 'venmo') {
+            // Show Zelle QR modal
+            document.getElementById('venmoAmount').textContent = data.amount;
+            document.getElementById('venmoNote').textContent = data.name;
+            openVenmoModal();
+        } else if (data.payment === 'zelle') {
+            // Show Zelle QR modal
+            document.getElementById('zelleAmount').textContent = data.amount;
+            document.getElementById('zelleNote').textContent = data.name;
+            openZelleModal();
+        } else if (data.payment === 'paypal') {
+            alert('Please send ' + data.amount + ' via PayPal to: paypal@example.com\n\nInclude "' + data.name + '" in the note.');
+            const confirmed = confirm('Have you completed the PayPal payment?\n\nClick OK after you have sent the payment.');
+            if (confirmed) {
+                submitFormData(data, type);
+            }
+        }
+    }
+}
+</script>
+</body>
+</html>
