@@ -134,6 +134,16 @@
             box-shadow: 0 6px 25px rgba(255,230,109,0.4);
         }
 
+        .btn-waitlist {
+            background: #a29bfe;
+            color: white;
+        }
+
+        .btn-waitlist:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(162,155,254,0.4);
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -293,7 +303,7 @@
     <div class="slide-content">
         <h1>ಭಾಗ್ಯವಂತ ಮೊಂತಿ ಫೆಸ್ಟ್</h1>
         <h2>(Blessed Monthi Fest)<h2>
-        <p>We warmly invite you and your family to join us in celebrating Monthi Fest. Come together as a community to honor Our Lady’s Nativity with prayer, flower offerings, joyful singing, cultural performances, and delicious traditional Konkani food.
+        <p>We warmly invite you and your family to join us in celebrating Monthi Fest. Come together as a community to honor Our Lady's Nativity with prayer, flower offerings, joyful singing, cultural performances, and delicious traditional Konkani food.
 
 Let us celebrate our faith, heritage, and unity with gratitude and joy. We look forward to sharing this special day with you!</p>
         <div class="image-container">
@@ -328,6 +338,7 @@ Let us celebrate our faith, heritage, and unity with gratitude and joy. We look 
                 <button class="btn btn-volunteer" onclick="openModal('volunteer')">Volunteer</button>
                 <button class="btn btn-tickets" onclick="openModal('tickets')">Buy Tickets</button>
                 <button class="btn btn-donate" onclick="openModal('donate')">Donate</button>
+                <button class="btn btn-waitlist" onclick="openModal('waitlist')">Join Waitlist</button>
             </div>
         </div>
     </section>
@@ -476,6 +487,34 @@ Let us celebrate our faith, heritage, and unity with gratitude and joy. We look 
                         <textarea name="message" placeholder="Leave a message of support..."></textarea>
                     </div>
                     <button type="submit" class="submit-btn">Complete Donation</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Waitlist Modal -->
+    <div id="waitlistModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);">
+                <h2>Join the Waitlist</h2>
+                <span class="close" onclick="closeModal('waitlist')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p style="color: #555; margin-bottom: 25px; font-size: 1rem; line-height: 1.6;">
+                    Tickets sold out? Sign up below and we'll contact you if spots become available!
+                </p>
+                <form id="waitlistForm" onsubmit="handleSubmit(event, 'waitlist')">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" name="phone" required placeholder="Enter your phone number">
+                    </div>
+                    <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);">
+                        Join Waitlist
+                    </button>
                 </form>
             </div>
         </div>
@@ -658,6 +697,7 @@ async function submitFormData(data, type) {
             case 'volunteer': message = 'Thank you for volunteering! We will contact you soon.'; break;
             case 'tickets':   message = 'Thank you for your purchase! You will receive a confirmation shortly.'; break;
             case 'donate':    message = 'Thank you for your generous donation!'; break;
+            case 'waitlist':  message = 'You have been added to the waitlist! We will reach out if spots open up.'; break;
         }
 
         alert(message);
@@ -710,6 +750,13 @@ async function handleSubmit(event, type) {
         return;
     }
 
+    // Waitlist: submit directly (no payment needed)
+    if (type === 'waitlist') {
+        data.type = type;
+        await submitFormData(data, type);
+        return;
+    }
+
     // For tickets and donations, validate and handle payment
     if (type === 'tickets' || type === 'donate') {
         if (!data.payment) {
@@ -736,12 +783,10 @@ async function handleSubmit(event, type) {
 
         // Handle payment based on method
         if (data.payment === 'venmo') {
-            // Show Zelle QR modal
             document.getElementById('venmoAmount').textContent = data.amount;
             document.getElementById('venmoNote').textContent = data.name;
             openVenmoModal();
         } else if (data.payment === 'zelle') {
-            // Show Zelle QR modal
             document.getElementById('zelleAmount').textContent = data.amount;
             document.getElementById('zelleNote').textContent = data.name;
             openZelleModal();
