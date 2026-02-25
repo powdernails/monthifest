@@ -441,7 +441,6 @@ Let us celebrate our faith, heritage, and unity with gratitude and joy. We look 
                     <div class="payment-options">
                         <div class="payment-option" onclick="selectPayment(this, 'tickets', 'zelle')">Zelle</div>
                         <div class="payment-option" onclick="selectPayment(this, 'tickets', 'venmo')">Venmo</div>
-                        <div class="payment-option" onclick="selectPayment(this, 'tickets', 'paypal')">PayPal</div>
                     </div>
                     <input type="hidden" name="payment" required>
                 </div>
@@ -477,7 +476,6 @@ Let us celebrate our faith, heritage, and unity with gratitude and joy. We look 
                         <div class="payment-options">
                             <div class="payment-option" onclick="selectPayment(this, 'donate', 'zelle')">Zelle</div>
                             <div class="payment-option" onclick="selectPayment(this, 'donate', 'venmo')">Venmo</div>
-                            <div class="payment-option" onclick="selectPayment(this, 'donate', 'paypal')">PayPal</div>
                         </div>
                         <input type="hidden" name="payment" required>
                     </div>
@@ -790,13 +788,7 @@ async function handleSubmit(event, type) {
             document.getElementById('zelleAmount').textContent = data.amount;
             document.getElementById('zelleNote').textContent = data.name;
             openZelleModal();
-        } else if (data.payment === 'paypal') {
-            alert('Please send ' + data.amount + ' via PayPal to: paypal@example.com\n\nInclude "' + data.name + '" in the note.');
-            const confirmed = confirm('Have you completed the PayPal payment?\n\nClick OK after you have sent the payment.');
-            if (confirmed) {
-                submitFormData(data, type);
-            }
-        }
+        } 
     }
 }
 </script>
