@@ -104,16 +104,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .btn-volunteer {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        .btn-volunteer:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(255,107,107,0.4);
-        }
-
         .btn-tickets {
             background: #4ecdc4;
             color: white;
@@ -122,26 +112,6 @@
         .btn-tickets:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 25px rgba(78,205,196,0.4);
-        }
-
-        .btn-donate {
-            background: #ffe66d;
-            color: #333;
-        }
-
-        .btn-donate:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(255,230,109,0.4);
-        }
-
-        .btn-waitlist {
-            background: #a29bfe;
-            color: white;
-        }
-
-        .btn-waitlist:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(162,155,254,0.4);
         }
 
         .modal {
@@ -329,88 +299,22 @@ Let us celebrate our faith, heritage, and unity with gratitude and joy. We look 
     <section class="slide slide-3">
         <div class="slide-content">
             <h1>Get Involved</h1>
-            <p>You can support this special event by volunteering your time, sharing your talents, making a donation, or purchasing tickets and bringing your family and friends along. Every helping hand and generous contribution makes a meaningful difference in creating a joyful and memorable celebration for our entire community.</p>
+            <p>You can support this special event by purchasing tickets and bringing your family and friends along. Every contribution makes a meaningful difference in creating a joyful and memorable celebration for our entire community.</p>
              <div class="image-container">
             <img src="images/volunteers.jpg" alt="Event photo 1" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
             <img src="images/volunteer2.jpg" alt="Event photo 2" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
             </div>
             <div class="action-buttons">
-                <button class="btn btn-volunteer" onclick="openModal('volunteer')">Volunteer</button>
-                <button class="btn btn-tickets" onclick="openModal('tickets')">Buy Tickets</button>
+                <button class="btn btn-tickets" onclick="openModal('tickets')">Purchase Tickets</button>
                <!-- <button class="btn btn-tickets" onclick="openModal('tickets')" disabled style="background:#aaa; cursor:not-allowed; opacity:0.7;">Tickets Sold Out</button> -->
-                <button class="btn btn-donate" onclick="openModal('donate')">Donate</button>
-                <button class="btn btn-waitlist" onclick="openModal('waitlist')">Join Waitlist</button>
             </div>
         </div>
     </section>
 
-    <div id="volunteerModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Volunteer Sign Up</h2>
-            <span class="close" onclick="closeModal('volunteer')">&times;</span>
-        </div>
-        <div class="modal-body">
-            <form id="volunteerForm" onsubmit="handleSubmit(event, 'volunteer')">
-                <div class="form-group">
-                    <label>Full Name *</label>
-                    <input type="text" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label>Phone Number *</label>
-                    <input type="tel" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label>Volunteer Activities * (select all that apply)</label>
-                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px; padding-left: 0;">
-    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
-        <input type="checkbox" name="activities" value="Food Prep" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
-        Food Prep
-    </label>
-    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
-        <input type="checkbox" name="activities" value="Decoration" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
-        Decoration
-    </label>
-    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
-        <input type="checkbox" name="activities" value="Setup" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
-        Setup
-    </label>
-    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
-        <input type="checkbox" name="activities" value="Tear Down" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
-        Tear Down
-    </label>
-    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
-        <input type="checkbox" name="activities" value="Event Coordination" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
-        Event Coordination
-    </label>
-    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
-        <input type="checkbox" name="activities" value="Performer" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
-        Performer
-    </label>
-    <label style="display: flex; align-items: center; font-weight: normal; cursor: pointer;">
-        <input type="checkbox" name="activities" value="Photographer" style="width: 16px; height: 16px; margin: 0 10px 0 0; flex-shrink: 0;">
-        Photographer
-    </label>
-</div>
-                </div>
-                <div class="form-group">
-                    <label>Additional Information</label>
-                    <textarea name="message" placeholder="Tell us about your skills, availability, or any questions..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Submit Application</button>
-            </form>
-        </div>
-    </div>
-</div>
-
    <div id="ticketsModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>Buy Tickets</h2>
+            <h2>Purchase Tickets</h2>
             <span class="close" onclick="closeModal('tickets')">&times;</span>
         </div>
         <div class="modal-body">
@@ -451,73 +355,6 @@ Let us celebrate our faith, heritage, and unity with gratitude and joy. We look 
         </div>
     </div>
 </div>
-
-    <div id="donateModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Make a Donation</h2>
-                <span class="close" onclick="closeModal('donate')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="donateForm" onsubmit="handleSubmit(event, 'donate')">
-                    <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email *</label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Donation Amount *</label>
-                        <input type="number" name="amount" placeholder="50" min="1" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Payment Method *</label>
-                        <div class="payment-options">
-                            <div class="payment-option" onclick="selectPayment(this, 'donate', 'zelle')">Zelle</div>
-                            <div class="payment-option" onclick="selectPayment(this, 'donate', 'venmo')">Venmo</div>
-                        </div>
-                        <input type="hidden" name="payment" required>
-                    </div>
-                    <div id="donatePaymentInfo" class="payment-info"></div>
-                    <div class="form-group">
-                        <label>Message (Optional)</label>
-                        <textarea name="message" placeholder="Leave a message of support..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Complete Donation</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Waitlist Modal -->
-    <div id="waitlistModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header" style="background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);">
-                <h2>Join the Waitlist</h2>
-                <span class="close" onclick="closeModal('waitlist')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p style="color: #555; margin-bottom: 25px; font-size: 1rem; line-height: 1.6;">
-                    Tickets sold out? Sign up below and we'll contact you if spots become available!
-                </p>
-                <form id="waitlistForm" onsubmit="handleSubmit(event, 'waitlist')">
-                    <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" name="name" required placeholder="Enter your full name">
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number *</label>
-                        <input type="tel" name="phone" required placeholder="Enter your phone number">
-                    </div>
-                    <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);">
-                        Join Waitlist
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
 
 <!-- Zelle QR Code Modal -->
 <div id="zelleModal" class="modal">
@@ -691,15 +528,7 @@ async function submitFormData(data, type) {
             body: JSON.stringify(data)
         });
 
-        let message = '';
-        switch(type) {
-            case 'volunteer': message = 'Thank you for volunteering! We will contact you soon.'; break;
-            case 'tickets':   message = 'Thank you for your purchase! You will receive a confirmation shortly.'; break;
-            case 'donate':    message = 'Thank you for your generous donation!'; break;
-            case 'waitlist':  message = 'You have been added to the waitlist! We will reach out if spots open up.'; break;
-        }
-
-        alert(message);
+        alert('Thank you for your purchase! You will receive a confirmation shortly.');
         closeModal(type);
         
         // Reset form
@@ -707,9 +536,7 @@ async function submitFormData(data, type) {
         form.reset();
 
         // Reset total amount display for tickets
-        if (type === 'tickets') {
-            document.getElementById('totalAmount').value = '$0';
-        }
+        document.getElementById('totalAmount').value = '$0';
 
         // Clear pending data
         pendingFormData = null;
@@ -730,66 +557,34 @@ async function handleSubmit(event, type) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    // Handle checkboxes for volunteer form
-    if (type === 'volunteer') {
-        const activities = [...event.target.querySelectorAll('input[name="activities"]:checked')]
-            .map(cb => cb.value)
-            .join(', ');
-
-        if (!activities) {
-            alert('Please select at least one volunteer activity.');
-            return;
-        }
-
-        data.activities = activities;
-        data.type = type;
-        
-        // Volunteers don't need payment, submit directly
-        await submitFormData(data, type);
+    if (!data.payment) {
+        alert('Please select a payment method before submitting.');
         return;
     }
 
-    // Waitlist: submit directly (no payment needed)
-    if (type === 'waitlist') {
-        data.type = type;
-        await submitFormData(data, type);
+    const adults = parseInt(data.adults) || 0;
+    const children = parseInt(data.children) || 0;
+
+    if (adults === 0 && children === 0) {
+        alert('Please select at least one adult or child ticket.');
         return;
     }
 
-    // For tickets and donations, validate and handle payment
-    if (type === 'tickets' || type === 'donate') {
-        if (!data.payment) {
-            alert('Please select a payment method before submitting.');
-            return;
-        }
+    data.type = type;
 
-        // Validate tickets
-        if (type === 'tickets') {
-            const adults = parseInt(data.adults) || 0;
-            const children = parseInt(data.children) || 0;
-            
-            if (adults === 0 && children === 0) {
-                alert('Please select at least one adult or child ticket.');
-                return;
-            }
-        }
+    // Store pending data
+    pendingFormData = data;
+    pendingFormType = type;
 
-        data.type = type;
-        
-        // Store pending data
-        pendingFormData = data;
-        pendingFormType = type;
-
-        // Handle payment based on method
-        if (data.payment === 'venmo') {
-            document.getElementById('venmoAmount').textContent = data.amount;
-            document.getElementById('venmoNote').textContent = data.name;
-            openVenmoModal();
-        } else if (data.payment === 'zelle') {
-            document.getElementById('zelleAmount').textContent = data.amount;
-            document.getElementById('zelleNote').textContent = data.name;
-            openZelleModal();
-        } 
+    // Handle payment based on method
+    if (data.payment === 'venmo') {
+        document.getElementById('venmoAmount').textContent = data.amount;
+        document.getElementById('venmoNote').textContent = data.name;
+        openVenmoModal();
+    } else if (data.payment === 'zelle') {
+        document.getElementById('zelleAmount').textContent = data.amount;
+        document.getElementById('zelleNote').textContent = data.name;
+        openZelleModal();
     }
 }
 </script>
