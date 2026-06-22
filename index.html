@@ -114,6 +114,59 @@
             box-shadow: 0 6px 25px rgba(78,205,196,0.4);
         }
 
+        /* Ticket progress bar */
+        .ticket-progress {
+            max-width: 480px;
+            margin: 2.5rem auto 0;
+            text-align: left;
+        }
+
+        .ticket-progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .ticket-progress-label .count {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .ticket-progress-track {
+            width: 100%;
+            height: 14px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 999px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .ticket-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #4ecdc4;
+            border-radius: 999px;
+            transition: width 0.8s ease;
+        }
+
+        .ticket-progress-fill.almost-full {
+            background: #f5a623;
+        }
+
+        .ticket-progress-fill.full {
+            background: #f5576c;
+        }
+
+        .ticket-progress-note {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -265,6 +318,10 @@
             .payment-options {
                 grid-template-columns: 1fr;
             }
+
+            .ticket-progress {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -307,6 +364,16 @@ Let us celebrate our faith, heritage, and unity with gratitude and joy. We look 
             <div class="action-buttons">
                 <button class="btn btn-tickets" onclick="openModal('tickets')">Purchase Tickets</button>
                <!-- <button class="btn btn-tickets" onclick="openModal('tickets')" disabled style="background:#aaa; cursor:not-allowed; opacity:0.7;">Tickets Sold Out</button> -->
+            </div>
+            <div class="ticket-progress">
+                <div class="ticket-progress-label">
+                    <span>Tickets sold</span>
+                    <span class="count" id="ticketProgressCount">Loading…</span>
+                </div>
+                <div class="ticket-progress-track">
+                    <div class="ticket-progress-fill" id="ticketProgressFill"></div>
+                </div>
+                <div class="ticket-progress-note" id="ticketProgressNote"></div>
             </div>
         </div>
     </section>
@@ -420,6 +487,8 @@ Let us celebrate our faith, heritage, and unity with gratitude and joy. We look 
 <script>
 // *** PASTE YOUR GOOGLE APPS SCRIPT URL HERE ***
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8TX-JsfKBxKqJvJ9zBHY7dpo5dsbyL0dlpIBI2OqtgjqRSffJ9H4d_hKg1ow3o4eORA/exec';
+
+const TOTAL_TICKETS = 210;
 
 // Store pending form data
 let pendingFormData = null;
@@ -542,6 +611,11 @@ async function submitFormData(data, type) {
         pendingFormData = null;
         pendingFormType = null;
 
+        // Refresh the ticket progress bar after a successful purchase
+        if (type === 'tickets') {
+            loadTicketProgress();
+        }
+
     } catch (error) {
         console.error('Error:', error);
         alert('Something went wrong. Please try again.');
@@ -587,6 +661,49 @@ async function handleSubmit(event, type) {
         openZelleModal();
     }
 }
+
+// ----- Ticket progress bar -----
+async function loadTicketProgress() {
+    const countEl = document.getElementById('ticketProgressCount');
+    const fillEl = document.getElementById('ticketProgressFill');
+    const noteEl = document.getElementById('ticketProgressNote');
+
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL + '?action=ticketCount');
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.error || 'Unknown error');
+        }
+
+        const totalSold = data.totalSold;
+        const total = data.total || TOTAL_TICKETS;
+        const percent = Math.min((totalSold / total) * 100, 100);
+
+        countEl.textContent = totalSold + ' / ' + total;
+        fillEl.style.width = percent + '%';
+
+        fillEl.classList.remove('almost-full', 'full');
+        if (totalSold >= total) {
+            fillEl.classList.add('full');
+            noteEl.textContent = 'Sold out!';
+        } else if (percent >= 85) {
+            fillEl.classList.add('almost-full');
+            noteEl.textContent = 'Almost sold out — get your tickets soon!';
+        } else {
+            noteEl.textContent = (total - totalSold) + ' tickets remaining';
+        }
+
+    } catch (error) {
+        console.error('Error loading ticket progress:', error);
+        countEl.textContent = '';
+        noteEl.textContent = 'Ticket count unavailable right now';
+        fillEl.style.width = '0%';
+    }
+}
+
+// Load progress bar on page load
+window.addEventListener('DOMContentLoaded', loadTicketProgress);
 </script>
 </body>
 </html>
