@@ -17,6 +17,22 @@
             scroll-behavior: smooth;
         }
 
+        .logo-bar {
+            width: 100%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-bar img {
+            max-height: 110px;
+            width: auto;
+        }
+
         .slide {
             min-height: 100vh;
             display: flex;
@@ -322,10 +338,18 @@
             .ticket-progress {
                 max-width: 100%;
             }
+
+            .logo-bar img {
+                max-height: 80px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="logo-bar">
+        <img src="images/MoriachemKutamlogo.png" alt="Moriachem Kutam Logo">
+    </div>
+
     <section class="slide slide-1">
     <div class="slide-content">
         <h1>ಭಾಗ್ಯವಂತ ಮೊಂತಿ ಫೆಸ್ಟ್</h1>
