@@ -6,7 +6,7 @@
     <title>Monthi Fest Event</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Noto+Sans+Kannada:wght@400;500;600&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Noto+Sans+Kannada:wght@400;500;600;700&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -18,7 +18,7 @@
             font-family: 'Lato', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            color: #2b2b2b;
+            color: #1a1a1a;
         }
 
         .logo-bar {
@@ -76,7 +76,7 @@
             width: 100%;
             position: relative;
             z-index: 2;
-            color: #2b2b2b;
+            color: #1a1a1a;
             text-align: center;
             border: 1px solid #d8d2c4;
             border-radius: 4px;
@@ -106,6 +106,8 @@
 
         .slide-3 {
             background: #ffffff;
+            min-height: auto;
+            padding-top: 20px;
         }
 
         .slide h1 {
@@ -114,16 +116,33 @@
             font-weight: 600;
             letter-spacing: 0.5px;
             margin-bottom: 1.5rem;
-            color: #1a1a1a;
+            color: #111111;
+        }
+
+        .slide h1.konkani-heading {
+            font-family: 'Noto Sans Kannada', sans-serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #142b52;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide h2.english-subheading {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-style: italic;
+            font-size: 2.1rem;
+            color: #142b52;
+            margin-bottom: 1.5rem;
         }
 
         .slide p {
             font-family: 'Lato', sans-serif;
             font-size: 1.15rem;
-            font-weight: 300;
+            font-weight: 400;
             line-height: 1.9;
             margin-bottom: 2rem;
-            color: #444444;
+            color: #111111;
         }
 
         .image-container {
@@ -230,6 +249,75 @@
             margin-top: 8px;
             font-size: 0.85rem;
             opacity: 0.75;
+        }
+
+        .ticket-disclaimer {
+            max-width: 620px;
+            margin: 2rem auto 0;
+            padding: 16px 20px;
+            background: #f7f5ef;
+            border: 1px solid #d8d2c4;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #333333;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        .ticket-disclaimer strong {
+            color: #142b52;
+        }
+
+        /* FAQ section */
+        .faq-list {
+            max-width: 800px;
+            margin: 2rem auto 0;
+            text-align: left;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #d8d2c4;
+            padding: 28px 4px;
+        }
+
+        .faq-item:first-child {
+            border-top: 1px solid #d8d2c4;
+        }
+
+        .faq-question {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #142b52;
+            margin-bottom: 10px;
+        }
+
+        .faq-answer {
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.8;
+            color: #111111;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
         }
 
         .modal {
@@ -374,6 +462,11 @@
                 font-size: 2.2rem;
             }
 
+            .konkani-heading,
+            .english-subheading {
+                font-size: 1.5rem;
+            }
+
             .slide p {
                 font-size: 1rem;
             }
@@ -416,8 +509,8 @@
                 <img src="images/MoriachemKutamlogo.png" alt="Moriachem Kutam Logo">
             </div>
         </div>
-        <h1 style="font-family: 'Noto Sans Kannada', sans-serif;">ಭಾಗ್ಯವಂತ್ ಮೊಂತಿ ಫೆಸ್ಟ್</h1>
-        <h2 style="font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-style: italic; font-size: 1.4rem; color: #555; margin-bottom: 1.5rem;">Blessed Monthi Fest</h2>
+        <h1 class="konkani-heading">ಭಾಗ್ಯವಂತ್ ಮೊಂತಿ ಫೆಸ್ಟ್</h1>
+        <h2 class="english-subheading">Blessed Monthi Fest</h2>
         <p font-weight: 300>We warmly invite you and your family to join us in celebrating Monthi Fest. Come together as a community to honor Our Lady's Nativity with prayer, flower offerings, joyful singing, cultural performances, and delicious traditional Konkani food.
 
 Let us celebrate our faith, heritage, and unity with gratitude and joy. We look forward to sharing this special day with you!</p>
@@ -437,22 +530,11 @@ Mass: 10:30 AM — St. Thomas More Catholic Church<br>
 Procession & Flower Throwing : 11:45 am starting from St. Thomas More Catholic Church<br>
 Reception: St. Thomas More Parish Hall<br>
 Flower Throwing · Lunch · Performances · Games · Dancing<br>
-Tickets: $22 adult · $15 child</p>
+Tickets: $22 adult · $15 child · Children under 3 are free</p>
             <div class="image-container">
             <img src="images/flowerthrowing.jpg" alt="Event photo 1" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
             <img src="images/singing.jpg" alt="Event photo 2" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
             <img src="images/food.jpg" alt="Event photo 3" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
-            </div>
-        </div>
-    </section>
-
-    <section class="slide slide-3">
-        <div class="slide-content">
-            <h1>Get Involved</h1>
-            <p font-weight: 300>You can support this special event by purchasing tickets and bringing your family and friends along. Every contribution makes a meaningful difference in creating a joyful and memorable celebration for our entire community.</p>
-             <div class="image-container">
-            <img src="images/volunteers.jpg" alt="Event photo 1" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
-            <img src="images/volunteer2.jpg" alt="Event photo 2" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
             </div>
             <div class="action-buttons">
                 <button class="btn btn-tickets" onclick="openModal('tickets')">Purchase Tickets</button>
@@ -467,6 +549,21 @@ Tickets: $22 adult · $15 child</p>
                     <div class="ticket-progress-fill" id="ticketProgressFill"></div>
                 </div>
                 <div class="ticket-progress-note" id="ticketProgressNote"></div>
+            </div>
+            <div class="ticket-disclaimer">
+                <strong>Please note:</strong> All ticket sales are final and non-refundable. Tickets are non-transferable except with prior notice to the organizers. Please arrive at least 15 minutes before the start of Mass or the reception to allow time for check-in.
+            </div>
+        </div>
+    </section>
+
+    <section class="slide slide-3">
+        <div class="slide-content">
+            <h1>FAQ</h1>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">What is Moriachem Kutam?</div>
+                    <div class="faq-answer">Answer coming soon.</div>
+                </div>
             </div>
         </div>
     </section>
@@ -495,11 +592,15 @@ Tickets: $22 adult · $15 child</p>
                 <div class="form-group">
                     <label>Number of Children *</label>
                     <input type="number" name="children" id="children" min="0" value="0" required onchange="calculateTotal()">
-                    <small style="color: #666;">$15 per child</small>
+                    <small style="color: #666;">$15 per child · Children under 3 are free</small>
                 </div>
                 <div class="form-group">
                     <label>Total Amount</label>
                     <input type="text" id="totalAmount" name="amount" readonly style="background: #f5f5f5; font-weight: bold; font-size: 1.2rem;" value="$0">
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="attendingMass" name="attendingMass">
+                    <label for="attendingMass">Will be attending Mass</label>
                 </div>
                 <div class="form-group">
                     <label>Payment Method *</label>
@@ -723,6 +824,9 @@ async function handleSubmit(event, type) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+
+    // Checkboxes don't appear in FormData unless checked; normalize to true/false
+    data.attendingMass = document.getElementById('attendingMass').checked ? 'Yes' : 'No';
 
     if (!data.payment) {
         alert('Please select a payment method before submitting.');
