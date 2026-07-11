@@ -25,8 +25,79 @@
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            gap: 20px;
             margin-bottom: 2rem;
+            border: 2px solid #c9871f;
+            border-radius: 3px;
+            padding: 30px 42px;
+            position: relative;
+            background: linear-gradient(135deg, #fdf6e6 0%, #fffefb 55%, #fdf6e6 100%);
+        }
+
+        .logo-bar::before {
+            content: "";
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border: 1px dashed #d99e3f;
+            border-radius: 2px;
+            pointer-events: none;
+        }
+
+        .frame-diamond {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #c9871f;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+
+        .frame-diamond::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 6px;
+            height: 6px;
+            background: #ffffff;
+        }
+
+        .frame-diamond.diamond-tl { top: -7px; left: -7px; }
+        .frame-diamond.diamond-tr { top: -7px; right: -7px; }
+        .frame-diamond.diamond-bl { bottom: -7px; left: -7px; }
+        .frame-diamond.diamond-br { bottom: -7px; right: -7px; }
+
+        .header-event-highlight {
+            text-align: right;
+        }
+
+        .header-event-highlight .highlight-eyebrow {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #142b52;
+            margin-bottom: 8px;
+        }
+
+        .header-event-highlight .highlight-date {
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            font-style: italic;
+            color: #2f6f6a;
+            line-height: 1.4;
+        }
+
+        .header-event-highlight .highlight-detail {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            color: #333333;
+            margin-top: 10px;
+            line-height: 1.6;
         }
 
         .logo-bar .logo-frame {
@@ -36,10 +107,11 @@
     width: 240px;
     height: 240px;
     padding: 0;
-    border: 1px solid #d8d2c4;
+    border: 2px solid #c9871f;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
         .logo-bar .logo-frame::before {
@@ -49,16 +121,17 @@
             left: 6px;
             right: 6px;
             bottom: 6px;
-            border: 1px solid #d8d2c4;
+            border: 1px dashed #d99e3f;
             border-radius: 50%;
             pointer-events: none;
+            z-index: 2;
         }
 
         .logo-bar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 38% center;
+    object-position: 60% center;
     border-radius: 50%;
     display: block;
 }
@@ -79,8 +152,8 @@
             z-index: 2;
             color: #1a1a1a;
             text-align: center;
-            border: 1px solid #d8d2c4;
-            border-radius: 4px;
+            border: 2px solid #c9871f;
+            border-radius: 3px;
             padding: 60px 50px;
             box-shadow: 0 0 0 1px #ffffff inset, 0 8px 30px rgba(0,0,0,0.04);
             position: relative;
@@ -93,7 +166,7 @@
             left: 10px;
             right: 10px;
             bottom: 10px;
-            border: 1px solid #d8d2c4;
+            border: 1px dashed #d99e3f;
             pointer-events: none;
         }
 
@@ -499,22 +572,45 @@
                 width: 160px;
                 height: 160px;
             }
+
+            .logo-bar {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .header-event-highlight {
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
     <section class="slide slide-1">
     <div class="slide-content">
+        <span class="frame-diamond diamond-tl"></span>
+        <span class="frame-diamond diamond-tr"></span>
+        <span class="frame-diamond diamond-bl"></span>
+        <span class="frame-diamond diamond-br"></span>
         <div class="logo-bar">
+            <span class="frame-diamond diamond-tl"></span>
+            <span class="frame-diamond diamond-tr"></span>
+            <span class="frame-diamond diamond-bl"></span>
+            <span class="frame-diamond diamond-br"></span>
             <div class="logo-frame">
                 <img src="images/mklogo2.PNG" alt="Moriachem Kutam Logo">
+            </div>
+            <div class="header-event-highlight">
+                <div class="highlight-eyebrow">Monthi Fest 2026</div>
+                <div class="highlight-date">Celebrating the Nativity of Mother Mary &amp; Thanksgiving for the Harvest</div>
+                <div class="highlight-detail">September 12, 2026<br>St Thomas More Catholic Church<br>10205 N FM 620, Austin TX 78726</div>
             </div>
         </div>
         <h1 class="konkani-heading">ಭಾಗ್ಯವಂತ್ ಮೊಂತಿ ಫೆಸ್ಟ್</h1>
         <h2 class="english-subheading">Blessed Monthi Fest</h2>
-        <p font-weight: 300>We warmly invite you and your family to join us in celebrating Monthi Fest. Come together as a community to honor Our Lady's Nativity with prayer, flower offerings, joyful singing, cultural performances, and delicious traditional Konkani food.
-
-Let us celebrate our faith, heritage, and unity with gratitude and joy. We look forward to sharing this special day with you!</p>
+        <p font-weight: 300>
+            We warmly invite you and your family to celebrate Monthi Fest with us. Join our community as we honor the Nativity of Our Blessed Mother through a prayerful Mass, the traditional offering of flowers, joyful hymns, vibrant cultural performances, and a delicious Konkani meal.
+        </p>
         <div class="image-container">
             <img src="images/idol.jpg" alt="Event photo 1" style="width:100%; height:350px; object-fit:cover; border-radius:12px;">
             <img src="images/childrenflowers.jpg" alt="Event photo 2" style="width:100%; height:350px; object-fit:cover; border-radius:12px;">
@@ -525,13 +621,20 @@ Let us celebrate our faith, heritage, and unity with gratitude and joy. We look 
 
     <section class="slide slide-2">
         <div class="slide-content">
+            <span class="frame-diamond diamond-tl"></span>
+            <span class="frame-diamond diamond-tr"></span>
+            <span class="frame-diamond diamond-bl"></span>
+            <span class="frame-diamond diamond-br"></span>
             <h1>Event Highlights</h1>
-            <p font-weight: 300>Date: Saturday, September 12<br>
-Bilingual Konkani Mass: 10:30 AM — St. Thomas More Catholic Church<br>
-Procession & Flower Throwing : 11:45 am starting from St. Thomas More Catholic Church<br>
-Novem Jehvonn: St. Thomas More Parish Hall<br>
-Flower offering · Lunch · Performances · Games · Dancing<br>
-Tickets: $22 adult · $15 child · Children under 3 are free</p>
+            <p font-weight: 300>
+                Date: Saturday, September 12<br>
+                Where: St. Thomas More Catholic Church, 10205 N FM 620, Austin TX 78726<br>
+                Bilingual Konkani Mass: 10:30 AM<br>
+                Procession & Flower Offering : 11:45 am starting from St. Thomas More Catholic Church<br>
+                Novem Jehvonn Celebration: St. Thomas More Parish Hall<br>
+                Flower offering · Lunch · Performances · Games · Dancing<br>
+                Tickets: $22 adult · $15 child · Children under 3 are free
+            </p>
             <div class="image-container">
             <img src="images/flowerthrowing.jpg" alt="Event photo 1" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
             <img src="images/singing.jpg" alt="Event photo 2" style="width:100%; height:400px; object-fit:cover; border-radius:12px;">
@@ -552,33 +655,41 @@ Tickets: $22 adult · $15 child · Children under 3 are free</p>
                 <div class="ticket-progress-note" id="ticketProgressNote"></div>
             </div>
             <div class="ticket-disclaimer">
-                <strong>Please note:</strong> All ticket sales are final and non-refundable. Tickets are transferable. Photos taken at this event may be shared publicly online.
+                <strong>Please note:</strong> All ticket sales are final and non-refundable. Tickets are transferable.Photos taken at this event may be shared publicly online. It is recommended to read the FAQ before purchasing tickets.
             </div>
         </div>
     </section>
 
     <section class="slide slide-3">
         <div class="slide-content">
+            <span class="frame-diamond diamond-tl"></span>
+            <span class="frame-diamond diamond-tr"></span>
+            <span class="frame-diamond diamond-bl"></span>
+            <span class="frame-diamond diamond-br"></span>
             <h1>FAQ</h1>
             <div class="faq-list">
                 <div class="faq-item">
                     <div class="faq-question">What is Moriachem Kutam?</div>
-                    <div class="faq-answer">Moriachem Kutam translates to "Mother Mary's Family" and is the community organization behind Monthi Fest — formed to plan and run the festival each year. It handles ticket sales, donations, coordinates logistics, and purchases.</div>
+                    <div class="faq-answer">Moriachem Kutam translates to "Mother Mary's Family", is the community organization formed to plan and organise the festival each year. It handles ticket sales, donations, coordinate logistics, and purchases.</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">What is Monthi Fest?</div>
-                    <div class="faq-answer">Monthi Fest, celebrates the Nativity of Mother Mary and is a cherished tradition in Konkani Catholic communities. It includes offering the season's first harvest and flowers to Mary in thanksgiving, followed by Mass, a procession, and community celebration with food, music, and dance. Our celebration here in Central Texas carries this heritage forward, bringing our community together in faith and joy.</div>
+                    <div class="faq-answer">Monthi Fest, is a cherished celebration of the Nativity of Mother Mary and Thanksgiving of the harvest among Konkani Catholic communities. The festival begins with offering the season's first harvest and flowers to Mary in thanksgiving, followed by Mass, a procession, and community celebration with food, music, and cultural performances. Our community in Central Texas carries this heritage forward, bringing our community together in faith and joy. </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">What is Novem Jehvonn?</div>
                     <div class="faq-answer">Novem Jehvonn means "new meal" in Konkani — it's the traditional feast prepared from the season's first harvest, blessed as part of the Monthi Fest celebration. Families and the community come together to share this meal as an act of thanksgiving for the harvest and God's blessings, making it one of the most cherished parts of the celebration.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">What kind of food is served?</div>
-                    <div class="faq-answer">The feast is entirely vegetarian, following the traditional Novem Jehvonn menu. As per custom, the dishes are served in an odd number — traditionally considered auspicious for celebratory occasions. Some dishes you can expect: Alun Dento, Gosalay Thel Piyao, Thendli Channa Sukha etc.</div>
+                    <div class="faq-question">What should I bring for the event?</div>
+                    <div class="faq-answer">Traditionally, children and adults are welcome to shower flowers/flower petals on the baby Mother Mary Statue (Bambino).If you or your children would like to participate, please bring flowers from your garden.Each person is recommended to have atleast 3 handfuls of flowers/flower petals.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Who is welcome to attend?</div>
+                    <div class="faq-question">What kind of food is served?</div>
+                    <div class="faq-answer">The feast is a traditional vegetarian Novem Jehvonn menu prepared in odd numbers — traditionally considered auspicious for celebratory occasions. Traditional dishes you can expect are Alun Dento, Gosalay Thel Piyao, Thendli Channa Sukha etc. </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Who can attend?</div>
                     <div class="faq-answer">Everyone is welcome to attend — Monthi Fest is open to the entire community, families, and friends of all backgrounds.</div>
                 </div>
                 <div class="faq-item">
@@ -591,19 +702,19 @@ Tickets: $22 adult · $15 child · Children under 3 are free</p>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Is my ticket refundable?</div>
-                    <div class="faq-answer">All ticket sales are final and non-refundable. Kindly transfer your tickets if you cannot attend.</div>
+                    <div class="faq-answer">All ticket sales are final and non-refundable but can be transferred if you cannot attend. Please make sure to email moriachemkutam@gmail.com so we have a record of the transfer</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Do I need a ticket to attend Mass?</div>
-                    <div class="faq-answer">No — Mass is open to everyone and does not require a ticket. Tickets are only for the reception afterward.</div>
+                    <div class="faq-answer">No — Mass is open to everyone and does not require a ticket. Tickets are only for the reception.</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">What time should I arrive?</div>
-                    <div class="faq-answer">Mass begins at 10:30 AM, followed by the procession and flower throwing at 11:45 AM.</div>
+                    <div class="faq-answer">Mass begins at 10:30 AM, followed by the procession and flower offering at 11:45 AM.</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Who do I contact with other questions?</div>
-                    <div class="faq-answer">Please contact our main organisers at moriachemkutam@gmail.com</div>
+                    <div class="faq-answer">If you have any questions or need more information, please contact our organizing team at moriachemkutam@gmail.com. We're happy to help</div>
                 </div>
             </div>
         </div>
