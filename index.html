@@ -531,6 +531,77 @@
             color: #333;
         }
 
+        .venmo-app-link {
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+            padding: 16px;
+            margin-top: 16px;
+            background: #3396CD;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(51,150,205,0.3);
+        }
+
+        .venmo-app-link:hover {
+            opacity: 0.9;
+        }
+
+        .qr-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 400px;
+            margin: 22px auto;
+            color: #999;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .qr-divider::before,
+        .qr-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .confirm-step-box {
+            position: sticky;
+            bottom: 0;
+            margin-top: 30px;
+            margin-left: -40px;
+            margin-right: -40px;
+            padding: 20px 40px calc(20px + env(safe-area-inset-bottom, 0px));
+            background: #eafaf1;
+            border: 2px solid #2f6f6a;
+            border-top-width: 3px;
+            box-shadow: 0 -6px 16px rgba(0,0,0,0.12);
+            border-radius: 0 0 18px 18px;
+            z-index: 5;
+        }
+
+        .confirm-step-box .confirm-step-title {
+            font-weight: 700;
+            color: #142b52;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+        }
+
+        .confirm-step-box.attention {
+            animation: pulseAttention 1s ease-in-out 3;
+        }
+
+        @keyframes pulseAttention {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(47,111,106,0.5); }
+            50% { box-shadow: 0 0 0 12px rgba(47,111,106,0); }
+        }
+
         @media (max-width: 768px) {
             .slide h1 {
                 font-size: 2.2rem;
@@ -737,6 +808,10 @@
                     <input type="email" name="email" required>
                 </div>
                 <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" placeholder="(512) 555-1234">
+                </div>
+                <div class="form-group">
                     <label>Number of Adults *</label>
                     <input type="number" name="adults" id="adults" min="0" value="0" required onchange="calculateTotal()">
                     <small style="color: #666;">$22 per adult</small>
@@ -787,15 +862,17 @@
             <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 10px; border: 1px solid #ffc107;">
                 <p style="margin: 0; color: #856404;"><strong>Note:</strong> Please include "<span id="zelleNote"></span>" in the payment memo</p>
             </div>
-            <div style="margin-top: 30px;">
+            <div class="confirm-step-box" id="zelleConfirmBox">
+                <div class="confirm-step-title">⚠️ Last step — don't skip this!</div>
+                <p style="margin: 0 0 14px; color: #333;">Paying in your banking app does NOT submit your order. After you pay, come back here, check the box, and tap Confirm below.</p>
                 <label style="display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; font-size: 1.1rem;">
                     <input type="checkbox" id="zelleConfirmCheckbox" style="width: 20px; height: 20px;">
                     I have completed the Zelle payment
                 </label>
+                <button onclick="confirmZellePayment()" class="submit-btn" style="margin-top: 16px; max-width: 400px;">
+                    Confirm Payment & Submit
+                </button>
             </div>
-            <button onclick="confirmZellePayment()" class="submit-btn" style="margin-top: 20px; max-width: 400px;">
-                Confirm Payment & Submit
-            </button>
         </div>
     </div>
 </div>
@@ -810,22 +887,10 @@
             <p style="margin: 20px 0; font-size: 1.1rem;">
                 <strong>Amount: <span id="venmoAmount"></span></strong>
             </p>
-            <div style="margin: 30px auto; padding: 20px; background: white; border-radius: 10px; display: inline-block;">
-                <img src="images/MKvenmo.jpeg" alt="Venmo QR Code" style="max-width: 300px; width: 100%;">
-            </div>
-            <p style="color: #666; margin-top: 20px;">Scan this QR code with your banking app</p>
-            <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 10px; border: 1px solid #ffc107;">
-                <p style="margin: 0; color: #856404;"><strong>Note:</strong> Please include "<span id="venmoNote"></span>" in the payment memo</p>
-            </div>
-            <div style="margin-top: 30px;">
-                <label style="display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; font-size: 1.1rem;">
-                    <input type="checkbox" id="venmoConfirmCheckbox" style="width: 20px; height: 20px;">
-                    I have completed the Venmo payment
-                </label>
-            </div>
-            <button onclick="confirmVenmoPayment()" class="submit-btn" style="margin-top: 20px; max-width: 400px;">
-                Confirm Payment & Submit
-            </button>
+            <a id="venmoAppLink" href="https://venmo.com/code?user_id=4607223707731645363&created=1784239293.369444&printed=1" target="_blank" rel="noopener" class="venmo-app-link" style="margin-top: 26px;" onclick="venmoPayClicked()">
+                Open Venmo & Complete Order
+            </a>
+            <p style="color: #666; margin-top: 18px; font-size: 0.9rem;">Tapping the button records your order and opens Venmo so you can send payment — no need to come back to this page.</p>
         </div>
     </div>
 </div>
@@ -862,13 +927,30 @@ function closeZelleModal() {
 }
 //Venmo Modal Functions
 function openVenmoModal() {
+    document.getElementById('venmoAppLink').dataset.submitted = 'false';
     document.getElementById('venmoModal').style.display = 'block';
 }
 
 function closeVenmoModal() {
     document.getElementById('venmoModal').style.display = 'none';
-    document.getElementById('venmoConfirmCheckbox').checked = false;
 }
+
+// When the user comes back to this tab after leaving to pay in their banking
+// app for Zelle, draw attention to the confirm step so they don't leave
+// without submitting. (Venmo no longer needs this — it submits on click.)
+document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible') return;
+
+    const zelleModal = document.getElementById('zelleModal');
+
+    if (zelleModal && zelleModal.style.display === 'block') {
+        const box = document.getElementById('zelleConfirmBox');
+        box.classList.remove('attention');
+        void box.offsetWidth;
+        box.classList.add('attention');
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+});
 
 // Close modal when clicking outside
 window.onclick = function(event) {
@@ -915,16 +997,19 @@ function confirmZellePayment() {
     closeZelleModal();
     submitFormData(pendingFormData, pendingFormType);
 }
-function confirmVenmoPayment() {
-    const checkbox = document.getElementById('venmoConfirmCheckbox');
-    
-    if (!checkbox.checked) {
-        alert('Please confirm that you have completed the payment by checking the box.');
-        return;
+// Fires the moment someone taps "Open Venmo & Complete Order".
+// We submit the order to the backend immediately in the background and let
+// the link's normal navigation continue to open Venmo (target="_blank" keeps
+// this tab alive so the submission isn't interrupted).
+function venmoPayClicked() {
+    const link = document.getElementById('venmoAppLink');
+    if (link.dataset.submitted === 'true') {
+        return; // already recorded this order; allow re-opening Venmo without resubmitting
     }
+    link.dataset.submitted = 'true';
 
-    closeVenmoModal();
     submitFormData(pendingFormData, pendingFormType);
+    closeVenmoModal();
 }
 
 // Submit form data to Google Sheets
@@ -1002,7 +1087,6 @@ async function handleSubmit(event, type) {
     // Handle payment based on method
     if (data.payment === 'venmo') {
         document.getElementById('venmoAmount').textContent = data.amount;
-        document.getElementById('venmoNote').textContent = data.name;
         openVenmoModal();
     } else if (data.payment === 'zelle') {
         document.getElementById('zelleAmount').textContent = data.amount;
