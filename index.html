@@ -325,6 +325,20 @@
             opacity: 0.75;
         }
 
+        .ticket-availability-note {
+            max-width: 480px;
+            margin: 2.5rem auto 0;
+            padding: 14px 20px;
+            background: #fdecea;
+            border: 1px solid #f5576c;
+            border-radius: 8px;
+            color: #b3261e;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
         .ticket-disclaimer {
             max-width: 620px;
             margin: 2rem auto 0;
@@ -715,6 +729,7 @@
                 <button class="btn btn-tickets" onclick="openModal('tickets')">Purchase Tickets</button>
                <!-- <button class="btn btn-tickets" onclick="openModal('tickets')" disabled style="background:#aaa; cursor:not-allowed; opacity:0.7;">Tickets Sold Out</button> -->
             </div>
+            <!--
             <div class="ticket-progress">
                 <div class="ticket-progress-label">
                     <span>Tickets sold</span>
@@ -724,6 +739,10 @@
                     <div class="ticket-progress-fill" id="ticketProgressFill"></div>
                 </div>
                 <div class="ticket-progress-note" id="ticketProgressNote"></div>
+            </div>
+            -->
+            <div class="ticket-availability-note">
+                Few tickets left. Grab as early as possible !
             </div>
             <div class="ticket-disclaimer">
                 <strong>Please note:</strong> The preferred payment method is Venmo. All ticket sales are final and non-refundable. Tickets are transferable.Photos taken at this event may be shared publicly online. For more info please read FAQs.
@@ -1096,6 +1115,8 @@ async function handleSubmit(event, type) {
 }
 
 // ----- Ticket progress bar -----
+// Commented out along with the progress bar markup above.
+/*
 async function loadTicketProgress() {
     const countEl = document.getElementById('ticketProgressCount');
     const fillEl = document.getElementById('ticketProgressFill');
@@ -1137,6 +1158,7 @@ async function loadTicketProgress() {
 
 // Load progress bar on page load
 window.addEventListener('DOMContentLoaded', loadTicketProgress);
+*/
 </script>
 </body>
 </html>
